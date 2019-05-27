@@ -1,9 +1,11 @@
 package model;
 
 import java.util.Calendar;
+import java.util.List;
 
 public interface GerenciadorT {
-	AluguelModel pagarAluguel(int idAluguel, int idCliente);
-	AluguelModel gerarAluguel(Calendar dataFim);
+	boolean pagarAluguel(int idAluguel, int idCliente);
+	AluguelModel gerarAluguel(int idCliente, Calendar dataFim);
+	List<AluguelModel> listarAluguel(int idCliente);
 	
 }
