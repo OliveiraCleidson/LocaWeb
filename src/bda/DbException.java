@@ -1,4 +1,4 @@
-package BDAcess;
+package bda;
 
 public class DbException extends RuntimeException {
 	/* SQLException herda de Exception

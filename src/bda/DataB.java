@@ -1,4 +1,4 @@
-package BDAcess;
+package bda;
 
 import java.io.FileInputStream;
 import java.io.IOException;
