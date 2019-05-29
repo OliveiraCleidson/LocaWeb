@@ -1,5 +1,7 @@
 package model;
 
+
+
 public class ClienteModel {
 	private int id;
 	private String nome;
@@ -7,6 +9,12 @@ public class ClienteModel {
 	private int rg;
 	private int cpf;
 	private int telefone;
+
+	@Override
+	public String toString() {
+		return "ClienteModel [id=" + id + ", nome=" + nome + ", email=" + email + ", rg=" + rg + ", cpf=" + cpf
+				+ ", telefone=" + telefone + "]";
+	}
 
 	public ClienteModel(String nome, int rg) {
 		super();
