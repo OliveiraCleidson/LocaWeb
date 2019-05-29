@@ -9,4 +9,5 @@ public interface ClienteDAO {
 	List<ClienteModel> findByNome(String nome);
 	List<ClienteModel> findByAll();
 	boolean update(ClienteModel cliente);	
+	boolean insert(ClienteModel cliente);
 }

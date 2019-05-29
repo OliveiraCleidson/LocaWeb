@@ -9,6 +9,11 @@ public class JogoModel {
 		this.nome = nome;
 	}
 	
+	public JogoModel(String nome) {
+		super();
+		this.nome = nome;
+	}
+
 	//Getters and Setters
 	public String getNome() {
 		return nome;

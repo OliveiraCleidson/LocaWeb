@@ -1,19 +1,41 @@
 package model;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class AluguelModel {
 	private int id;
 	private int idCliente;
-	Calendar dataInicio;
-	Calendar dataFim;
+	Date dataInicio;
+	Date dataFim;
 	int ativo;
 	
+	public AluguelModel(int idCliente, Date dataInicio, Date dataFim, int ativo) {
+		super();
+		this.idCliente = idCliente;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
+		this.ativo = ativo;
+	}
+	public AluguelModel(int id, int idCliente, Date dataInicio, Date dataFim, int ativo) {
+		super();
+		this.id = id;
+		this.idCliente = idCliente;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
+		this.ativo = ativo;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "AluguelModel [id=" + id + ", idCliente=" + idCliente + ", dataInicio=" + dataInicio + ", dataFim="
+				+ dataFim + ", ativo=" + ativo + "]";
+	}
 	//Getters and Setters
-	public Calendar getDataInicio() {
+	public Date getDataInicio() {
 		return dataInicio;
 	}
-	public void setDataInicio(Calendar dataInicio) {
+	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 	public int getAtivo() {
@@ -28,7 +50,7 @@ public class AluguelModel {
 	public int getIdCliente() {
 		return idCliente;
 	}
-	public Calendar getDataFim() {
+	public Date getDataFim() {
 		return dataFim;
 	}
 	

@@ -32,7 +32,7 @@ public class ClienteModel {
 		this.telefone = telefone;
 	}
 	
-	public ClienteModel(String nome, String email, int rg, int cpf, int telefone) {
+	public ClienteModel(String nome, int rg, int cpf, String email, int telefone) {
 		super();
 		this.nome = nome;
 		this.email = email;

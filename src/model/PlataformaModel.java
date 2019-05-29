@@ -9,6 +9,11 @@ public class PlataformaModel {
 		this.nome = nome;
 	}
 	
+	public PlataformaModel(String nome) {
+		super();
+		this.nome = nome;
+	}
+
 	//Getters and Setters
 	public String getNome() {
 		return nome;

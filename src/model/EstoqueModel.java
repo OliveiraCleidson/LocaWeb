@@ -14,6 +14,12 @@ public class EstoqueModel {
 		this.preco = preco;
 	}
 
+	@Override
+	public String toString() {
+		return "EstoqueModel [idJogo=" + idJogo + ", idPlataforma=" + idPlataforma + ", quantidade=" + quantidade
+				+ ", preco=" + preco + "]";
+	}
+
 	public boolean adicionar(int qtd) {
 		this.quantidade = qtd;
 		if(this.quantidade < this.quantidade + qtd)

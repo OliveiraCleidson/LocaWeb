@@ -10,7 +10,7 @@ import java.util.List;
 import bda.DataB;
 import model.ClienteModel;
 
-public class ClienteJBDC implements ClienteDAO{
+public class ClienteJDBC implements ClienteDAO{
 
 	public ClienteModel findById(int id) {
 		Connection conn = null;
@@ -78,7 +78,7 @@ public class ClienteJBDC implements ClienteDAO{
 			conn = DataB.getConnection();
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM cliente");
-			rs.first();
+			rs.beforeFirst();
 			if(!rs.next())
 				return null;
 			rs.beforeFirst();
@@ -119,6 +119,41 @@ public class ClienteJBDC implements ClienteDAO{
 			+ "', telefone = " 
 			+ cliente.getTelefone() 
 			+ " WHERE id = " + cliente.getId());
+			if(rs == 1)
+				return true;
+			else
+				return false;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DataB.closeStatement(st);
+			DataB.closeConnection();		
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean insert(ClienteModel cliente) {
+		Connection conn = null;
+		Statement st = null;
+		int rs;
+		try {
+			conn = DataB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeUpdate("INSERT INTO cliente(nome,rg,cpf,email,telefone) VALUES ('" 
+			+ cliente.getNome()
+			+ "','"
+			+ cliente.getRg() 
+			+ "','"
+			+ cliente.getCpf() 
+			+ "','"
+			+ cliente.getEmail() 
+			+ "','"
+			+ cliente.getTelefone() 
+			+ "')");
 			if(rs == 1)
 				return true;
 			else
