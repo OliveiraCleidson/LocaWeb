@@ -67,7 +67,7 @@ public class EstoqueJDBC implements EstoqueDAO {
 		return null;
 	}
 
-	public boolean update(EstoqueModel estoque) {
+	public boolean update(EstoqueModel estoque) throws SQLException {
 		Connection conn = null;
 		Statement st = null;
 		int rs;
@@ -75,19 +75,15 @@ public class EstoqueJDBC implements EstoqueDAO {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
 			rs = st.executeUpdate("UPDATE estoque SET quantidade = '" + estoque.getQuantidade() + "', preco = '" + estoque.getPreco() 
-					+ " WHERE idJogo = '" + estoque.getIdJogo() + "' and idPlataforma = '" + estoque.getIdPlataforma() + "'");
+					+ "' WHERE idJogo = '" + estoque.getIdJogo() + "' and idPlataforma = '" + estoque.getIdPlataforma() + "'");
 			if (rs == 1)
 				return true;
 			else
 				return false;
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			DataB.closeStatement(st);
 			DataB.closeConnection();
 		}
-
-		return false;
 	}
 
 	@Override

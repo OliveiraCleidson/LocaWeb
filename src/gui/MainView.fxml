@@ -6,31 +6,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<AnchorPane minHeight="300.0" minWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
-   <children>
-      <BorderPane prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #FFFF11;">
-         <top>
-            <MenuBar BorderPane.alignment="CENTER">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </top>
-      </BorderPane>
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Registros">
+            <items>
+              <MenuItem fx:id="miCliente" mnemonicParsing="false" onAction="#miClienteonClick" text="Cliente" />
+                  <MenuItem fx:id="miJogo" mnemonicParsing="false" onAction="#miJogoClick" text="Jogo" />
+                  <MenuItem fx:id="miPlataforma" mnemonicParsing="false" onAction="#miPlataformaClick" text="Plataforma" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Estoque">
+               <items>
+                  <MenuItem fx:id="miEstoque" mnemonicParsing="false" onAction="#miEstoque" text="Editar" />
+               </items></Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="27.0" prefWidth="600.0" style="-fx-background-color: #e2e2e2;" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>

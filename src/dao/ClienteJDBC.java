@@ -24,7 +24,7 @@ public class ClienteJDBC implements ClienteDAO{
 				return null;
 			}
 			rs.first();
-			ClienteModel cliente = new ClienteModel(rs.getInt("id"), rs.getString("nome"), rs.getString("email"), rs.getInt("rg"), rs.getInt("cpf"), rs.getInt("telefone"));
+			ClienteModel cliente = new ClienteModel(rs.getString("id"), rs.getString("nome"), rs.getString("email"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"));
 			return cliente;
 		}
 		catch(SQLException e) {
@@ -53,7 +53,7 @@ public class ClienteJDBC implements ClienteDAO{
 			rs.beforeFirst();
 			List<ClienteModel> list = new ArrayList<ClienteModel>();
 			while(rs.next()) {
-				ClienteModel cliente = new ClienteModel(rs.getInt("id"), rs.getString("nome"), rs.getString("email"), rs.getInt("rg"), rs.getInt("cpf"), rs.getInt("telefone"));
+				ClienteModel cliente = new ClienteModel(rs.getString("id"), rs.getString("nome"), rs.getString("email"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"));
 				list.add(cliente);
 			}
 			return list;
@@ -84,7 +84,7 @@ public class ClienteJDBC implements ClienteDAO{
 			rs.beforeFirst();
 			List<ClienteModel> list = new ArrayList<ClienteModel>();
 			while(rs.next()) {
-				ClienteModel cliente = new ClienteModel(rs.getInt("id"), rs.getString("nome"), rs.getString("email"), rs.getInt("rg"), rs.getInt("cpf"), rs.getInt("telefone"));
+				ClienteModel cliente = new ClienteModel(rs.getString("id"), rs.getString("nome"), rs.getString("email"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"));
 				list.add(cliente);
 			}
 			return list;
@@ -136,7 +136,7 @@ public class ClienteJDBC implements ClienteDAO{
 	}
 
 	@Override
-	public boolean insert(ClienteModel cliente) {
+	public boolean insert(ClienteModel cliente) throws SQLException {
 		Connection conn = null;
 		Statement st = null;
 		int rs;
@@ -159,15 +159,10 @@ public class ClienteJDBC implements ClienteDAO{
 			else
 				return false;
 		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
 		finally {
 			DataB.closeStatement(st);
 			DataB.closeConnection();		
 		}
-		
-		return false;
 	}
 
 }

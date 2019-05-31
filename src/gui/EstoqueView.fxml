@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="206.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EstoqueController">
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" prefWidth="183.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="417.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="348.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ComboBox fx:id="cbJogo" onAction="#onComboBoxjogosActio" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="30.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="cbPlataforma" onAction="#onComboBoxPlatActio" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="80.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <Label text="Informações do Estoque" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label text="Quantidade:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="30.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtQtd" maxWidth="60.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="90.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="txtPreco" maxWidth="60.0" onAction="#onComboBoxPlatActio" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="90.0" top="80.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="Preço R$:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="8.0" top="80.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#onBtnAtualizarAction" text="Atualizar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="115.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+   </center>
+   <bottom>
+      <VBox prefHeight="22.0" prefWidth="600.0" style="-fx-background-color: #e2e2e2;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <VBox prefHeight="27.0" prefWidth="600.0" style="-fx-background-color: #e2e2e2;" BorderPane.alignment="CENTER" />
+   </top>
+</BorderPane>

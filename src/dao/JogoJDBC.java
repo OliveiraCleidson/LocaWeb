@@ -13,7 +13,7 @@ import model.JogoModel;
 public class JogoJDBC implements JogoDAO{
 
 	@Override
-	public JogoModel findById(int id) {
+	public JogoModel findById(int id) throws SQLException {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -27,15 +27,11 @@ public class JogoJDBC implements JogoDAO{
 			rs.first();
 			JogoModel jogo = new JogoModel(rs.getInt("id"), rs.getString("nome"));
 			return jogo;
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			DataB.closeResultSet(rs);
 			DataB.closeStatement(st);
 			DataB.closeConnection();
 		}
-
-		return null;
 	}
 	
 
@@ -47,8 +43,7 @@ public class JogoJDBC implements JogoDAO{
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM jogo WHERE nome = " + nome);
-			rs.first();
+			rs = st.executeQuery("SELECT * FROM jogo WHERE nome = '" + nome + "'");
 			if(!rs.next())
 				return null;
 			rs.beforeFirst();
@@ -79,7 +74,7 @@ public class JogoJDBC implements JogoDAO{
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM jogo");
+			rs = st.executeQuery("SELECT * FROM jogo ORDER BY nome");
 			if(!rs.next())
 				return null;
 			rs.beforeFirst();
@@ -131,7 +126,7 @@ public class JogoJDBC implements JogoDAO{
 
 
 	@Override
-	public boolean insert(JogoModel jogo) {
+	public boolean insert(JogoModel jogo) throws SQLException {
 		Connection conn = null;
 		Statement st = null;
 		int rs;
@@ -145,16 +140,10 @@ public class JogoJDBC implements JogoDAO{
 				return true;
 			else
 				return false;
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-		finally {
+		}finally {
 			DataB.closeStatement(st);
 			DataB.closeConnection();		
 		}
-		
-		return false;
 	}
 	
 }

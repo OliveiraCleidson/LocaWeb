@@ -1,28 +1,38 @@
 package model;
 
+import java.sql.SQLException;
 
+import dao.ClienteDAO;
+import dao.ClienteJDBC;
 
 public class ClienteModel {
-	private int id;
+	private String id;
 	private String nome;
 	private String email;
-	private int rg;
-	private int cpf;
-	private int telefone;
+	private String rg;
+	private String cpf;
+	private String telefone;
+	private static ClienteDAO clienteDao = new ClienteJDBC();
 
+	
+	public static boolean insertClienteBD(String nome, String rg, String cpf, String email, String telefone) throws SQLException {
+		ClienteModel cliente = new ClienteModel(nome,rg,cpf,email,telefone);
+		return clienteDao.insert(cliente);
+	}
+	
 	@Override
 	public String toString() {
 		return "ClienteModel [id=" + id + ", nome=" + nome + ", email=" + email + ", rg=" + rg + ", cpf=" + cpf
 				+ ", telefone=" + telefone + "]";
 	}
 
-	public ClienteModel(String nome, int rg) {
+	public ClienteModel(String nome, String rg) {
 		super();
 		this.nome = nome;
 		this.rg = rg;
 	}
 	
-	public ClienteModel(int id, String nome, String email, int rg, int cpf, int telefone) {
+	public ClienteModel(String id, String nome, String email, String rg, String cpf, String telefone) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -32,7 +42,7 @@ public class ClienteModel {
 		this.telefone = telefone;
 	}
 	
-	public ClienteModel(String nome, int rg, int cpf, String email, int telefone) {
+	public ClienteModel(String nome, String rg, String cpf, String email, String telefone) {
 		super();
 		this.nome = nome;
 		this.email = email;
@@ -41,7 +51,7 @@ public class ClienteModel {
 		this.telefone = telefone;
 	}
 	//Get and Setters
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	public String getNome() {
@@ -56,16 +66,16 @@ public class ClienteModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getRg() {
+	public String getRg() {
 		return rg;
 	}
-	public int getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 }

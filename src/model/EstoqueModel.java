@@ -1,10 +1,28 @@
 package model;
 
+import dao.EstoqueDAO;
+import dao.EstoqueJDBC;
+
 public class EstoqueModel {
+	private int id;
 	private int idJogo;
 	private int idPlataforma;
 	private int quantidade;
 	private double preco;
+	private static EstoqueDAO estoqueDao = new EstoqueJDBC();
+	
+	public static EstoqueDAO getEstoqueDAO() {
+		return estoqueDao;
+	}
+	
+	public static boolean insertEstoqueDB(int idJogo, int idPlataforma, int quantidade, double preco) {
+		EstoqueModel estoque = new EstoqueModel(idJogo,idPlataforma,quantidade,preco);
+		return estoqueDao.insert(estoque);
+	}
+	
+	public static boolean insertEstoqueDB(EstoqueModel estoque) {
+		return estoqueDao.insert(estoque);
+	}
 	
 	public EstoqueModel(int idJogo, int idPlataforma, int quantidade, double preco) {
 		super();

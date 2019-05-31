@@ -46,8 +46,7 @@ public class PlataformaJDBC implements PlataformaDAO{
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM plataforma WHERE nome = " + nome);
-			rs.first();
+			rs = st.executeQuery("SELECT * FROM plataforma WHERE nome = '" + nome + "' ");
 			if(!rs.next())
 				return null;
 			rs.beforeFirst();
@@ -78,7 +77,7 @@ public class PlataformaJDBC implements PlataformaDAO{
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM plataforma");
+			rs = st.executeQuery("SELECT * FROM plataforma ORDER BY nome");
 			if(!rs.next())
 				return null;
 			rs.beforeFirst();
@@ -130,7 +129,7 @@ public class PlataformaJDBC implements PlataformaDAO{
 
 
 	@Override
-	public boolean insert(PlataformaModel plat) {
+	public boolean insert(PlataformaModel plat) throws SQLException {
 		Connection conn = null;
 		Statement st = null;
 		int rs;
@@ -145,15 +144,10 @@ public class PlataformaJDBC implements PlataformaDAO{
 			else
 				return false;
 		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
 		finally {
 			DataB.closeStatement(st);
 			DataB.closeConnection();		
 		}
-		
-		return false;
 	}
 	
 }
