@@ -1,11 +1,13 @@
 package model;
 
 import java.sql.SQLException;
+import java.util.Observable;
 
 import dao.ClienteDAO;
 import dao.ClienteJDBC;
+import javafx.beans.InvalidationListener;
 
-public class ClienteModel {
+public class ClienteModel implements javafx.beans.Observable {
 	private String id;
 	private String nome;
 	private String email;
@@ -13,6 +15,10 @@ public class ClienteModel {
 	private String cpf;
 	private String telefone;
 	private static ClienteDAO clienteDao = new ClienteJDBC();
+	
+	public static ClienteDAO getClienteDao() {
+		return clienteDao;
+	}
 
 	
 	public static boolean insertClienteBD(String nome, String rg, String cpf, String email, String telefone) throws SQLException {
@@ -77,5 +83,19 @@ public class ClienteModel {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+
+	@Override
+	public void addListener(InvalidationListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removeListener(InvalidationListener listener) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -77,8 +77,7 @@ public class ClienteJDBC implements ClienteDAO{
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM cliente");
-			rs.beforeFirst();
+			rs = st.executeQuery("SELECT * FROM cliente ORDER BY nome");
 			if(!rs.next())
 				return null;
 			rs.beforeFirst();

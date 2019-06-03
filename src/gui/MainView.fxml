@@ -3,10 +3,14 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -32,4 +36,36 @@
    <bottom>
       <AnchorPane prefHeight="27.0" prefWidth="600.0" style="-fx-background-color: #e2e2e2;" BorderPane.alignment="CENTER" />
    </bottom>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab text="Clientes">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="tvCliente">
+                                <columns>
+                                  <TableColumn fx:id="tcId" prefWidth="37.0" text="ID" />
+                                  <TableColumn fx:id="tcNome" prefWidth="152.0" text="Nome/Sobrenome" />
+                                    <TableColumn fx:id="tcRg" prefWidth="219.0" text="RG" />
+                                    <TableColumn fx:id="tcCpf" prefWidth="183.0" text="CPF" />
+                                    <TableColumn fx:id="tcEmail" prefWidth="252.0" text="Email" />
+                                    <TableColumn fx:id="tcTelefone" prefWidth="156.0" text="Telefone" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Untitled Tab 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </center></BorderPane>
+   </center>
 </BorderPane>

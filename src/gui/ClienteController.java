@@ -77,7 +77,8 @@ public class ClienteController implements Initializable {
 					info.setHeaderText("Cadastro Efetivado");
 					info.setContentText("Novo cliente inserido com sucesso! ");
 					info.showAndWait();
-					MainController.getStg().close();
+					MainController.atualizaClienteTb();
+					MainController.getStg().close();;
 				}
 			} catch (SQLException e) { 
 				Alert info = new Alert(Alert.AlertType.WARNING);
@@ -85,7 +86,7 @@ public class ClienteController implements Initializable {
 				info.setHeaderText("Cadastro Nao Efetivado");
 				info.setContentText(e.getMessage());
 				info.showAndWait();
-			}
+			} 
 		}
 		
 	}
