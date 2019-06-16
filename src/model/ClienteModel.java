@@ -3,9 +3,9 @@ package model;
 import java.sql.SQLException;
 import java.util.Observable;
 
-import dao.ClienteDAO;
-import dao.ClienteJDBC;
 import javafx.beans.InvalidationListener;
+import model.dao.ClienteDAO;
+import model.dao.ClienteJDBC;
 
 public class ClienteModel implements javafx.beans.Observable {
 	private String id;

@@ -3,9 +3,9 @@ package model;
 import java.sql.SQLException;
 import java.util.List;
 
-import dao.JogoDAO;
-import dao.JogoJDBC;
-import dao.PlataformaDAO;
+import model.dao.JogoDAO;
+import model.dao.JogoJDBC;
+import model.dao.PlataformaDAO;
 
 public class JogoModel {
 	private int id;

@@ -1,7 +1,7 @@
 package model;
 
-import dao.EstoqueDAO;
-import dao.EstoqueJDBC;
+import model.dao.EstoqueDAO;
+import model.dao.EstoqueJDBC;
 
 public class EstoqueModel {
 	private int id;

@@ -1,4 +1,4 @@
-package gui;
+package gui.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -10,16 +10,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import model.PlataformaModel;
+import model.JogoModel;
 
-public class PlataformaController implements Initializable{
+public class JogoController implements Initializable{
 	@FXML
 	private Button btnEnviar;
 	
 	@FXML
 	private TextField txtNome;
 	
-	public void onSubmitPlataforma() {
+	public void onSubmitJogo() {
 		boolean valid = false;
 		if(txtNome.getText() == null || txtNome.getText().trim().equals("")) {
 			txtNome.setStyle("-fx-border-color: red");
@@ -31,11 +31,11 @@ public class PlataformaController implements Initializable{
 		
 		if(valid) {
 			try {
-				if(PlataformaModel.insertPlataformaBD(txtNome.getText())) {
+				if(JogoModel.insertJogoBD(txtNome.getText())) {
 					Alert info = new Alert(Alert.AlertType.INFORMATION);
 					info.setTitle("Gerenciador de Registros");
 					info.setHeaderText("Cadastro Efetivado");
-					info.setContentText("Novo plataforma inserida com sucesso! ");
+					info.setContentText("Novo jogo inserido com sucesso! ");
 					info.showAndWait();
 					MainController.getStg().close();
 				} 
