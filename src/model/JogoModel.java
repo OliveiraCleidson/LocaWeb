@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import model.dao.JogoDAO;
-import model.dao.JogoJDBC;
 import model.dao.PlataformaDAO;
+import model.dao.jdbc.JogoJDBC;
 
 public class JogoModel {
 	private int id;

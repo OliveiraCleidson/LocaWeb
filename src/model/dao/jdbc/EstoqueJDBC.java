@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,24 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bda.DataB;
-import model.CarrinhoModel;
+import model.EstoqueModel;
+import model.dao.EstoqueDAO;
 
-public class CarrinhoJDBC implements CarrinhoDAO {
-	public CarrinhoModel findByIdJP(int idJ, int idP) {
+public class EstoqueJDBC implements EstoqueDAO {
+	public EstoqueModel findByIdJP(int idJ, int idP) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM carrinho WHERE idJogo = '" + idJ + "' and idPlataforma = '" + idP + "'");
+			rs = st.executeQuery("SELECT * FROM estoque WHERE idJogo = '" + idJ + "' and idPlataforma = '" + idP + "'");
 			if (!rs.first() || rs.next()) {
 				return null;
 			}
 			rs.first();
-			CarrinhoModel carrinho = new CarrinhoModel(rs.getInt("idPlataforma"), rs.getInt("idJogo"),
+			EstoqueModel estoque = new EstoqueModel(rs.getInt("id"), rs.getInt("idPlataforma"), rs.getInt("idJogo"),
 					rs.getInt("quantidade"), rs.getDouble("preco"));
-			return carrinho;
+			return estoque;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -38,22 +39,22 @@ public class CarrinhoJDBC implements CarrinhoDAO {
 	}
 
 
-	public List<CarrinhoModel> findByAll() {
+	public List<EstoqueModel> findByAll() {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM carrinho");
+			rs = st.executeQuery("SELECT * FROM estoque");
 			rs.beforeFirst();
 			if (!rs.next())
 				return null;
 			rs.beforeFirst();
-			List<CarrinhoModel> list = new ArrayList<CarrinhoModel>();
+			List<EstoqueModel> list = new ArrayList<EstoqueModel>();
 			while (rs.next()) {
-				CarrinhoModel carrinho =  new CarrinhoModel(rs.getInt("idPlataforma"), rs.getInt("idJogo"),rs.getInt("quantidade"), rs.getDouble("preco"));
-				list.add(carrinho);
+				EstoqueModel estoque =  new EstoqueModel(rs.getInt("id"),rs.getInt("idPlataforma"), rs.getInt("idJogo"),rs.getInt("quantidade"), rs.getDouble("preco"));
+				list.add(estoque);
 			}
 			return list;
 		} catch (SQLException e) {
@@ -67,39 +68,37 @@ public class CarrinhoJDBC implements CarrinhoDAO {
 		return null;
 	}
 
-	public boolean update(CarrinhoModel carrinho) {
+	public boolean update(EstoqueModel estoque) throws SQLException {
 		Connection conn = null;
 		Statement st = null;
 		int rs;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeUpdate("UPDATE carrinho SET quantidade = '" + carrinho.getQuantidade() + "', preco = '" + carrinho.getPreco() 
-					+ " WHERE idJogo = '" + carrinho.getIdJogo() + "' and idPlataforma = '" + carrinho.getIdPlataforma() + "'");
+			rs = st.executeUpdate("UPDATE estoque SET quantidade = '" + estoque.getQuantidade() + "', preco = '" + estoque.getPreco() 
+					+ "' WHERE id = '" + estoque.getId() + "'");
 			if (rs == 1)
 				return true;
 			else
 				return false;
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			DataB.closeStatement(st);
 			DataB.closeConnection();
 		}
-
-		return false;
 	}
+	
+	
 
 	@Override
-	public boolean insert(CarrinhoModel carrinho) {
+	public boolean insert(EstoqueModel estoque) {
 		Connection conn = null;
 		Statement st = null;
 		int rs;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeUpdate("INSERT INTO carrinho(idJogo,idPlataforma,quantidade,preco) VALUES ('" + carrinho.getIdJogo()
-					+ "','" + carrinho.getIdPlataforma() + "','" + carrinho.getQuantidade() + "','" + carrinho.getPreco() + "')");
+			rs = st.executeUpdate("INSERT INTO estoque(idJogo,idPlataforma,quantidade,preco) VALUES ('" + estoque.getIdJogo()
+					+ "','" + estoque.getIdPlataforma() + "','" + estoque.getQuantidade() + "','" + estoque.getPreco() + "')");
 			if (rs == 1)
 				return true;
 			else

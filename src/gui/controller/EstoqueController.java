@@ -36,6 +36,8 @@ public class EstoqueController implements Initializable {
 	private ObservableList<JogoModel> obsJogos;
 	private ObservableList<PlataformaModel> obsPlataformas;
 	
+	private EstoqueModel estoque;
+	
 	private JogoModel jgSelect;
 	private PlataformaModel pfSelect;
 	
@@ -50,20 +52,22 @@ public class EstoqueController implements Initializable {
 	}
 	
 	public void onComboBoxChange() {
-		EstoqueModel estoque = EstoqueModel.getEstoqueDAO().findByIdJP(jgSelect.getId(), pfSelect.getId());
+		estoque = EstoqueModel.getEstoqueDAO().findByIdJP(jgSelect.getId(), pfSelect.getId());
 		txtPreco.setText(Double.toString(estoque.getPreco()));
 		txtQtd.setText(Integer.toString(estoque.getQuantidade()));
 	}
 	
 	public void onBtnAtualizarAction() {
 		try {
-			EstoqueModel estoque = new EstoqueModel(jgSelect.getId(), pfSelect.getId(), Integer.parseInt(txtQtd.getText()), Double.parseDouble(txtPreco.getText()));
+			estoque.setPreco(Double.parseDouble(txtPreco.getText()));
+			estoque.setQuantidade(Integer.parseInt(txtQtd.getText()));
 			if(EstoqueModel.getEstoqueDAO().update(estoque)) {
 				Alert info = new Alert(Alert.AlertType.INFORMATION);
 				info.setTitle("Gerenciador de Estoque");
 				info.setHeaderText("Atualizacao Efetuada");
 				info.setContentText("O Estoque foi atualizado com sucesso! ");
 				info.showAndWait();
+				MainController.prop.updateTableView();
 			} 
 		} catch (SQLException e) { 
 			Alert info = new Alert(Alert.AlertType.WARNING);

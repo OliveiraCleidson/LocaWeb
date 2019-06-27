@@ -37,6 +37,7 @@ public class PlataformaController implements Initializable{
 					info.setHeaderText("Cadastro Efetivado");
 					info.setContentText("Novo plataforma inserida com sucesso! ");
 					info.showAndWait();
+					MainController.prop.updateTableView();
 					MainController.getStg().close();
 				} 
 			} catch (SQLException e) { 

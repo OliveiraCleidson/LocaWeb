@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.dao.JogoDAO;
 import model.dao.PlataformaDAO;
-import model.dao.PlataformaJDBC;
+import model.dao.jdbc.PlataformaJDBC;
 
 public class PlataformaModel {
 	private int id;

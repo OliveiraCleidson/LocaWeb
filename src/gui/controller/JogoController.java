@@ -37,6 +37,7 @@ public class JogoController implements Initializable{
 					info.setHeaderText("Cadastro Efetivado");
 					info.setContentText("Novo jogo inserido com sucesso! ");
 					info.showAndWait();
+					MainController.prop.updateTableView();
 					MainController.getStg().close();
 				} 
 			} catch (SQLException e) { 

@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,53 +8,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bda.DataB;
-import model.ClienteModel;
+import model.PlataformaModel;
+import model.dao.PlataformaDAO;
 
-public class ClienteJDBC implements ClienteDAO{
-
-	public ClienteModel findById(int id) {
+public class PlataformaJDBC implements PlataformaDAO{
+	@Override
+	public PlataformaModel findById(int id) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM cliente WHERE id = " + id);
-			if(!rs.first() || rs.next()) {
+			rs = st.executeQuery("SELECT * FROM plataforma WHERE id = " + id);
+			if (!rs.first() || rs.next()) {
 				return null;
 			}
 			rs.first();
-			ClienteModel cliente = new ClienteModel(rs.getString("id"), rs.getString("nome"), rs.getString("email"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"));
-			return cliente;
-		}
-		catch(SQLException e) {
+			PlataformaModel plat = new PlataformaModel(rs.getInt("id"), rs.getString("nome"));
+			return plat;
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			DataB.closeResultSet(rs);
 			DataB.closeStatement(st);
-			DataB.closeConnection();		
+			DataB.closeConnection();
 		}
-		
+
 		return null;
 	}
+	
 
-	public List<ClienteModel> findByNome(String nome) {
+	@Override
+	public List<PlataformaModel> findByNome(String nome) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM cliente WHERE nome = " + nome);
-			rs.first();
+			rs = st.executeQuery("SELECT * FROM plataforma WHERE nome = '" + nome + "' ");
 			if(!rs.next())
 				return null;
 			rs.beforeFirst();
-			List<ClienteModel> list = new ArrayList<ClienteModel>();
+			List<PlataformaModel> list = new ArrayList<PlataformaModel>();
 			while(rs.next()) {
-				ClienteModel cliente = new ClienteModel(rs.getString("id"), rs.getString("nome"), rs.getString("email"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"));
-				list.add(cliente);
+				PlataformaModel plat = new PlataformaModel(rs.getInt("id"), rs.getString("nome"));
+				list.add(plat);
 			}
 			return list;
 		}
@@ -69,22 +69,23 @@ public class ClienteJDBC implements ClienteDAO{
 		
 		return null;
 	}
-	
-	public List<ClienteModel> findByAll() {
+
+	@Override
+	public List<PlataformaModel> findByAll() {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM cliente ORDER BY nome");
+			rs = st.executeQuery("SELECT * FROM plataforma ORDER BY nome");
 			if(!rs.next())
 				return null;
 			rs.beforeFirst();
-			List<ClienteModel> list = new ArrayList<ClienteModel>();
+			List<PlataformaModel> list = new ArrayList<PlataformaModel>();
 			while(rs.next()) {
-				ClienteModel cliente = new ClienteModel(rs.getString("id"), rs.getString("nome"), rs.getString("email"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"));
-				list.add(cliente);
+				PlataformaModel plat = new PlataformaModel(rs.getInt("id"), rs.getString("nome"));
+				list.add(plat);
 			}
 			return list;
 		}
@@ -99,25 +100,18 @@ public class ClienteJDBC implements ClienteDAO{
 		
 		return null;
 	}
-	
-	public boolean update(ClienteModel cliente) {
+
+	@Override
+	public boolean update(PlataformaModel plat) {
 		Connection conn = null;
 		Statement st = null;
 		int rs;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeUpdate("UPDATE cliente SET nome = '" 
-			+ cliente.getNome() 
-			+ "', rg = " 
-			+ cliente.getRg() 
-			+ ", cpf = " 
-			+ cliente.getCpf() 
-			+ ", email = '" 
-			+ cliente.getEmail() 
-			+ "', telefone = " 
-			+ cliente.getTelefone() 
-			+ " WHERE id = " + cliente.getId());
+			rs = st.executeUpdate("UPDATE plat SET nome = '" 
+			+ plat.getNome() 
+			+ "' WHERE id = " + plat.getId());
 			if(rs == 1)
 				return true;
 			else
@@ -134,24 +128,17 @@ public class ClienteJDBC implements ClienteDAO{
 		return false;
 	}
 
+
 	@Override
-	public boolean insert(ClienteModel cliente) throws SQLException {
+	public boolean insert(PlataformaModel plat) throws SQLException {
 		Connection conn = null;
 		Statement st = null;
 		int rs;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeUpdate("INSERT INTO cliente(nome,rg,cpf,email,telefone) VALUES ('" 
-			+ cliente.getNome()
-			+ "','"
-			+ cliente.getRg() 
-			+ "','"
-			+ cliente.getCpf() 
-			+ "','"
-			+ cliente.getEmail() 
-			+ "','"
-			+ cliente.getTelefone() 
+			rs = st.executeUpdate("INSERT INTO plataforma(nome) VALUES ('" 
+			+ plat.getNome()
 			+ "')");
 			if(rs == 1)
 				return true;
@@ -163,5 +150,5 @@ public class ClienteJDBC implements ClienteDAO{
 			DataB.closeConnection();		
 		}
 	}
-
+	
 }

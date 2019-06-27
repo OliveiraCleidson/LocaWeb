@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,52 +8,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bda.DataB;
-import model.EstoqueModel;
+import model.CarrinhoModel;
+import model.dao.CarrinhoDAO;
 
-public class EstoqueJDBC implements EstoqueDAO {
-	public EstoqueModel findByIdJP(int idJ, int idP) {
-		Connection conn = null;
+public class CarrinhoJDBC implements CarrinhoDAO {
+	public CarrinhoModel findByIdAluguel(int idAluguel,Connection conn) {
 		Statement st = null;
 		ResultSet rs = null;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM estoque WHERE idJogo = '" + idJ + "' and idPlataforma = '" + idP + "'");
+			rs = st.executeQuery("SELECT * FROM carrinho WHERE idAluguel = '" + idAluguel + "'");
 			if (!rs.first() || rs.next()) {
 				return null;
 			}
 			rs.first();
-			EstoqueModel estoque = new EstoqueModel(rs.getInt("idPlataforma"), rs.getInt("idJogo"),
+			CarrinhoModel carrinho = new CarrinhoModel(rs.getInt("idPlataforma"), rs.getInt("idJogo"),
 					rs.getInt("quantidade"), rs.getDouble("preco"));
-			return estoque;
+			return carrinho;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DataB.closeResultSet(rs);
 			DataB.closeStatement(st);
-			DataB.closeConnection();
 		}
 
 		return null;
 	}
 
 
-	public List<EstoqueModel> findByAll() {
+	public List<CarrinhoModel> findByAll() {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM estoque");
+			rs = st.executeQuery("SELECT * FROM carrinho");
 			rs.beforeFirst();
 			if (!rs.next())
 				return null;
 			rs.beforeFirst();
-			List<EstoqueModel> list = new ArrayList<EstoqueModel>();
+			List<CarrinhoModel> list = new ArrayList<CarrinhoModel>();
 			while (rs.next()) {
-				EstoqueModel estoque =  new EstoqueModel(rs.getInt("idPlataforma"), rs.getInt("idJogo"),rs.getInt("quantidade"), rs.getDouble("preco"));
-				list.add(estoque);
+				CarrinhoModel carrinho =  new CarrinhoModel(rs.getInt("idPlataforma"), rs.getInt("idJogo"),rs.getInt("quantidade"), rs.getDouble("preco"));
+				list.add(carrinho);
 			}
 			return list;
 		} catch (SQLException e) {
@@ -67,35 +66,15 @@ public class EstoqueJDBC implements EstoqueDAO {
 		return null;
 	}
 
-	public boolean update(EstoqueModel estoque) throws SQLException {
+	public boolean update(CarrinhoModel carrinho) {
 		Connection conn = null;
 		Statement st = null;
 		int rs;
 		try {
 			conn = DataB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeUpdate("UPDATE estoque SET quantidade = '" + estoque.getQuantidade() + "', preco = '" + estoque.getPreco() 
-					+ "' WHERE idJogo = '" + estoque.getIdJogo() + "' and idPlataforma = '" + estoque.getIdPlataforma() + "'");
-			if (rs == 1)
-				return true;
-			else
-				return false;
-		} finally {
-			DataB.closeStatement(st);
-			DataB.closeConnection();
-		}
-	}
-
-	@Override
-	public boolean insert(EstoqueModel estoque) {
-		Connection conn = null;
-		Statement st = null;
-		int rs;
-		try {
-			conn = DataB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeUpdate("INSERT INTO estoque(idJogo,idPlataforma,quantidade,preco) VALUES ('" + estoque.getIdJogo()
-					+ "','" + estoque.getIdPlataforma() + "','" + estoque.getQuantidade() + "','" + estoque.getPreco() + "')");
+			rs = st.executeUpdate("UPDATE carrinho SET quantidade = '" + carrinho.getQuantidade() + "', preco = '" + carrinho.getPreco() 
+					+ " WHERE idJogo = '" + carrinho.getIdJogo() + "' and idPlataforma = '" + carrinho.getIdPlataforma() + "'");
 			if (rs == 1)
 				return true;
 			else
@@ -108,5 +87,28 @@ public class EstoqueJDBC implements EstoqueDAO {
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean insert(CarrinhoModel carrinho) throws SQLException {
+		Connection conn = null;
+		Statement st = null;
+		int rs;
+		try {
+			conn = DataB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeUpdate("INSERT INTO carrinho(idAluguel,idJogo,idPlataforma,quantidade,preco) VALUES ('" + carrinho.getIdAluguel() 
+			+ "','" 
+			+ carrinho.getIdJogo()
+			+ "','" + carrinho.getIdPlataforma() + "','" + carrinho.getQuantidade() + "','" + carrinho.getPreco() + "')");
+			if (rs == 1)
+				return true;
+			else
+				return false;
+		} finally {
+			DataB.closeStatement(st);
+			DataB.closeConnection();
+		}
+
 	}
 }

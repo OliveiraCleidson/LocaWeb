@@ -5,7 +5,7 @@ import java.util.Observable;
 
 import javafx.beans.InvalidationListener;
 import model.dao.ClienteDAO;
-import model.dao.ClienteJDBC;
+import model.dao.jdbc.ClienteJDBC;
 
 public class ClienteModel implements javafx.beans.Observable {
 	private String id;

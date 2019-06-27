@@ -1,4 +1,4 @@
-package model.dao;
+package model.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +9,7 @@ import java.util.List;
 
 import bda.DataB;
 import model.JogoModel;
+import model.dao.JogoDAO;
 
 public class JogoJDBC implements JogoDAO{
 

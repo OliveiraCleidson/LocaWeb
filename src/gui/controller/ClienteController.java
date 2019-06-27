@@ -28,48 +28,56 @@ public class ClienteController implements Initializable {
 	private VBox vboxAvisos;
 	
 	public void onSubmitCliente() {
-		boolean valid = false;
+		boolean valid[] = new boolean[5];
+		for (boolean b : valid) {
+			b = false;
+		}
 		if(txtNome.getText() == null || txtNome.getText().trim().equals("")) {
 			txtNome.setStyle("-fx-border-color: red");
-			valid = false;
+			valid[0] = false;
 		} else {
 			txtNome.setStyle("-fx-border-color: #d2d2d2");
-			valid = true;
+			valid[0] = true;
 		}
 		
 		if(txtRg.getText() == null || txtRg.getText().trim().equals("")) {
 			txtRg.setStyle("-fx-border-color: red");
-			valid = false;
+			valid[1] = false;
 		} else {
 			txtRg.setStyle("-fx-border-color: #d2d2d2");
-			valid = true;
+			valid[1] = true;
 		}
 		
 		if(txtCpf.getText() == null || txtCpf.getText().trim().equals("")) {
 			txtCpf.setStyle("-fx-border-color: red");
-			valid = false;
+			valid[2] = false;
 		} else {
 			txtCpf.setStyle("-fx-border-color: #d2d2d2");
-			valid = true;
+			valid[2] = true;
 		}
 		
 		if(txtEmail.getText() == null || txtEmail.getText().trim().equals("")) {
 			txtEmail.setStyle("-fx-border-color: red");
-			valid = false;
+			valid[3] = false;
 		} else {
 			txtEmail.setStyle("-fx-border-color: #d2d2d2");
-			valid = true;
+			valid[3] = true;
 		}
 		
 		if(txtTelefone.getText() == null || txtTelefone.getText().trim().equals("")) {
 			txtTelefone.setStyle("-fx-border-color: red");
-			valid = false;
+			valid[4] = false;
 		} else {
 			txtTelefone.setStyle("-fx-border-color: #d2d2d2");
-			valid = true;
+			valid[4] = true;
+		}
+		boolean validation = true;
+		for(boolean b : valid) {
+			if(b == false)
+				validation = false;
 		}
 		
-		if(valid) {
+		if(validation) {
 			try { 
 				if(ClienteModel.insertClienteBD(txtNome.getText(), txtRg.getText(), txtCpf.getText(), txtEmail.getText(), txtTelefone.getText())) {
 					Alert info = new Alert(Alert.AlertType.INFORMATION);
@@ -77,7 +85,7 @@ public class ClienteController implements Initializable {
 					info.setHeaderText("Cadastro Efetivado");
 					info.setContentText("Novo cliente inserido com sucesso! ");
 					info.showAndWait();
-					MainController.atualizaClienteTb();
+					MainController.prop.updateTableView();
 					MainController.getStg().close();;
 				}
 			} catch (SQLException e) { 
