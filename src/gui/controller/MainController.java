@@ -25,6 +25,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -65,6 +66,8 @@ public class MainController implements Initializable {
 	private TableColumn<ClienteModel,String> tcRg;
 	@FXML
 	private TableColumn<ClienteModel,String> tcTelefone;
+	@FXML
+	private TableColumn<ClienteModel,String> tcUpdate;
 	@FXML
 	private TableColumn<ClienteModel,String> tcEmail;
 	@FXML
@@ -114,24 +117,26 @@ public class MainController implements Initializable {
 				AluguelModel aluga = lstAluga.getSelectionModel().getSelectedItem();
 				if(aluga.getAtivo() == 1) {
 					EstoqueModel estoque = EstoqueModel.getEstoqueDAO().findByIdJP(aluga.getCarrinho().getIdJogo(), aluga.getCarrinho().getIdPlataforma());
-					estoque.adicionar();
-					try {
-						EstoqueModel.getEstoqueDAO().update(estoque);
-					} catch (SQLException e) {
-						Alert info = new Alert(Alert.AlertType.WARNING);
-						info.setTitle("Gerenciador de Estoque");
-						info.setHeaderText("Erro na Atualizacao");
-						info.setContentText(e.getMessage());
+					if(estoque != null) {
+						estoque.adicionar();
+						try {
+							EstoqueModel.getEstoqueDAO().update(estoque);
+						} catch (SQLException e) {
+							Alert info = new Alert(Alert.AlertType.WARNING);
+							info.setTitle("Gerenciador de Estoque");
+							info.setHeaderText("Erro na Atualizacao");
+							info.setContentText(e.getMessage());
+							info.showAndWait();
+						}
+						aluga.setAtivo(0);
+						AluguelModel.getAluguelDAO().update(aluga);
+						Alert info = new Alert(Alert.AlertType.INFORMATION);
+						info.setTitle("Gerenciador de Alugueis");
+						info.setHeaderText("Aluguel Pago");
+						info.setContentText("O Aluguel foi Pago!");
 						info.showAndWait();
+						atualizaAluguel();
 					}
-					aluga.setAtivo(0);
-					AluguelModel.getAluguelDAO().update(aluga);
-					Alert info = new Alert(Alert.AlertType.INFORMATION);
-					info.setTitle("Gerenciador de Alugueis");
-					info.setHeaderText("Aluguel Pago");
-					info.setContentText("O Aluguel foi Pago!");
-					info.showAndWait();
-					atualizaAluguel();
 				}
 			}
 		} else {
@@ -334,6 +339,7 @@ public class MainController implements Initializable {
 		tcIdPlat.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tcJogo.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tcPlat.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		editableColums();
 		updateTableView();
 		prop = this;
 		
@@ -354,5 +360,42 @@ public class MainController implements Initializable {
 	}
 	
 	
-	
+	private void editableColums() {
+		tcNome.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcNome.setOnEditCommit(e->{
+			e.getTableView().getItems().get(e.getTablePosition().getRow()).setNome(e.getNewValue());
+			ClienteModel clienteEdit = e.getTableView().getItems().get(e.getTablePosition().getRow());
+			ClienteModel.getClienteDao().update(clienteEdit);
+		});
+		tcEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcEmail.setOnEditCommit(e->{
+			e.getTableView().getItems().get(e.getTablePosition().getRow()).setEmail(e.getNewValue());
+			ClienteModel clienteEdit = e.getTableView().getItems().get(e.getTablePosition().getRow());
+			ClienteModel.getClienteDao().update(clienteEdit);
+		});
+		tcTelefone.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcTelefone.setOnEditCommit(e->{
+			e.getTableView().getItems().get(e.getTablePosition().getRow()).setTelefone(e.getNewValue());
+			ClienteModel clienteEdit = e.getTableView().getItems().get(e.getTablePosition().getRow());
+			ClienteModel.getClienteDao().update(clienteEdit);
+		});
+		tvCliente.setEditable(true);
+		
+		tcJogo.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcJogo.setOnEditCommit(e->{
+			e.getTableView().getItems().get(e.getTablePosition().getRow()).setNome(e.getNewValue());
+			JogoModel clienteEdit = e.getTableView().getItems().get(e.getTablePosition().getRow());
+			JogoModel.getJogoDAO().update(clienteEdit);
+		});
+		
+		tcPlat.setCellFactory(TextFieldTableCell.forTableColumn());
+		tcPlat.setOnEditCommit(e->{
+			e.getTableView().getItems().get(e.getTablePosition().getRow()).setNome(e.getNewValue());
+			PlataformaModel clienteEdit = e.getTableView().getItems().get(e.getTablePosition().getRow());
+			PlataformaModel.getPlataformaDAO().update(clienteEdit);
+		});
+		
+		tvJogo.setEditable(true);
+		tvPlat.setEditable(true);
+	}
 }

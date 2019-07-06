@@ -34,7 +34,7 @@
                <items>
                   <MenuItem fx:id="miEstoque" mnemonicParsing="false" onAction="#miEstoque" text="Editar" />
                </items></Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Deletar">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
@@ -54,14 +54,14 @@
                   <content>
                     <AnchorPane fx:id="anchPan" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                            <children>
-                              <TableView fx:id="tvCliente" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="tvCliente" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="399.0" prefWidth="1000.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
                                   <TableColumn fx:id="tcId" prefWidth="37.0" text="ID" />
-                                  <TableColumn fx:id="tcNome" prefWidth="152.0" text="Nome/Sobrenome" />
-                                    <TableColumn fx:id="tcRg" prefWidth="219.0" text="RG" />
-                                    <TableColumn fx:id="tcCpf" prefWidth="183.0" text="CPF" />
-                                    <TableColumn fx:id="tcEmail" prefWidth="252.0" text="Email" />
-                                    <TableColumn fx:id="tcTelefone" prefWidth="156.0" text="Telefone" />
+                                  <TableColumn fx:id="tcNome" prefWidth="241.0" text="Nome/Sobrenome" />
+                                    <TableColumn fx:id="tcRg" prefWidth="168.0" text="RG" />
+                                    <TableColumn fx:id="tcCpf" prefWidth="140.0" text="CPF" />
+                                    <TableColumn fx:id="tcEmail" prefWidth="230.0" text="Email" />
+                                    <TableColumn fx:id="tcTelefone" prefWidth="182.0" text="Telefone" />
                                 </columns>
                               </TableView>
                            </children>

@@ -48,6 +48,22 @@ public class JogoModel {
 		}
 		return true;
 	}
+	
+	public static boolean DelJogoBD(JogoModel jogo) throws SQLException {
+				
+		jogo = jogoDao.findByNome(jogo.getNome()).get(0);
+		PlataformaDAO plataformaDao = PlataformaModel.getPlataformaDAO();
+		List<PlataformaModel> plataforma = plataformaDao.findByAll();
+		if(plataforma != null) {
+			for(PlataformaModel plat : plataforma) {
+				if(EstoqueModel.getEstoqueDAO().findByIdJP(jogo.getId(), plat.getId()) == null) {
+					EstoqueModel estoque = new EstoqueModel(jogo.getId(), plat.getId(), 0, 0);
+					EstoqueModel.insertEstoqueDB(estoque);
+				}
+			}
+		}
+		return true;
+	}
 
 	//Getters and Setters
 	public String getNome() {
