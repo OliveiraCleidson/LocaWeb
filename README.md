@@ -19,8 +19,8 @@ Caso tenha caído aqui de parequedas, aqui tem um exemplo (não muito bom) de co
 $ git clone git@github.com:OliveiraCleidson/LocaWeb.git 'your-folder'
 $ cd `your-folder`
 ```
-3. Create a new branch to contribute
+3. Crie uma nova Branch para contribuir
 ```sh
 $ git checkout -b branching_name_to_contribute
 ```
-4. Commit and Pull Request
+4. Commit e Pull Request!
